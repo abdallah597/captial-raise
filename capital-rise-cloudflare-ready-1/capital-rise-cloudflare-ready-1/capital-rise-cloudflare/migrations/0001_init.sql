@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS services (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL DEFAULT '', icon TEXT NOT NULL DEFAULT 'i1', visible INTEGER NOT NULL DEFAULT 1, sort_order INTEGER NOT NULL DEFAULT 0);
+CREATE TABLE IF NOT EXISTS certificates (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL DEFAULT '', description TEXT NOT NULL DEFAULT '', image TEXT NOT NULL DEFAULT '', visible INTEGER NOT NULL DEFAULT 1, sort_order INTEGER NOT NULL DEFAULT 0);
+CREATE TABLE IF NOT EXISTS sessions (token_hash TEXT PRIMARY KEY, csrf TEXT NOT NULL, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS uploads (name TEXT PRIMARY KEY, mime TEXT NOT NULL, data BLOB NOT NULL, created_at INTEGER NOT NULL);
+INSERT OR IGNORE INTO settings(key,value) VALUES ('whatsapp_number','971541494114'),('wa_message','مرحباً، أريد بدء معاملة مع CAPITAL RISE'),('phone',''),('email',''),('address',''),('hours',''),('socials','{}'),('admin_password_hash','');
+INSERT INTO services(title,description,icon,visible,sort_order) SELECT 'تخليص المعاملات الحكومية','تخليص ومتابعة الإجراءات الحكومية بسهولة واحترافية.','i1',1,1 WHERE NOT EXISTS (SELECT 1 FROM services);
+INSERT INTO services(title,description,icon,visible,sort_order) SELECT 'متابعة الطلبات والإجراءات','متابعة حالة المعاملة خطوة بخطوة حتى إتمام الإجراءات.','i2',1,2 WHERE (SELECT COUNT(*) FROM services)=1;
+INSERT INTO services(title,description,icon,visible,sort_order) SELECT 'إنجاز وطباعة المستندات','خدمات تجهيز وطباعة المستندات والأوراق المطلوبة.','i3',1,3 WHERE (SELECT COUNT(*) FROM services)=2;
+INSERT INTO services(title,description,icon,visible,sort_order) SELECT 'خدمات تجهيز الأوراق','مساعدة العملاء في تجهيز المستندات اللازمة للمعاملات.','i4',1,4 WHERE (SELECT COUNT(*) FROM services)=3;
+INSERT INTO services(title,description,icon,visible,sort_order) SELECT 'معاملات الشركات','مساعدة الشركات في إنجاز ومتابعة الإجراءات والمعاملات.','i5',1,5 WHERE (SELECT COUNT(*) FROM services)=4;
+INSERT INTO services(title,description,icon,visible,sort_order) SELECT 'معاملات الأفراد','توفير المساعدة اللازمة لإنجاز معاملات الأفراد بسهولة.','i6',1,6 WHERE (SELECT COUNT(*) FROM services)=5;
+INSERT OR IGNORE INTO certificates(title,description,image,visible,sort_order) VALUES ('شهادة تقدير تجريبية','نموذج توضيحي لشكل شهادة التقدير داخل الموقع.','',1,1);
